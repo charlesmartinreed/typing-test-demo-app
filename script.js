@@ -15,13 +15,20 @@ quoteInputEl.addEventListener("input", () => {
   // should loop over characters in input, quote and see if they match
   const arrayQuote = quoteTextEl.querySelectorAll("span");
   const arrayValues = quoteInputEl.value.split("");
-  let timerCount = getTimerTime();
 
   //   get the WPM
+  //   let wordCountArr = quoteInputEl.value.replace(/[^\w\s]/gi, "").split(" ");
   let wordCountArr = quoteInputEl.value.replace(/[^\w\s]/gi, "").split(" ");
-  let currentWPMCount = Math.floor(wordCountArr.length / (timerCount / 60));
 
-  wpmCountEl.textContent = `${currentWPMCount} words per minute`;
+  //   let currentTimer = Math.floor(totalTime / 60);
+  //   let currentWPMCount = (currentTimer / wordCountArr.length) * 60;
+  let wpmCharCount = wordCountArr.length;
+  let wpmTime = getTimerTime() / 60;
+  let wpm = Math.floor(wpmCharCount / wpmTime);
+
+  console.log(wordCountArr.length, wpmTime, wpm);
+
+  wpmCountEl.textContent = `${wpm} words per minute`;
 
   //   check to see if user has correctly typed the phrase, if so, load the new quote
   let correct = true;
@@ -51,13 +58,14 @@ quoteInputEl.addEventListener("input", () => {
 // we compare the start time with the elapsed time to account for setInterval's imprecision
 
 let startTime;
+let totalTime;
 
 const initTimer = () => {
   //   timerDisplay.innerText = 0;
   startTime = new Date();
 
   let timerInterval = setInterval(() => {
-    // timerDisplay.innerText = getTimerTime();
+    totalTime = getTimerTime();
   }, 1000);
 };
 
@@ -80,6 +88,9 @@ const getQuote = async () => {
 const renderNewQuote = async () => {
   initTimer();
   const randomQuote = await getQuote();
+
+  //   this is used to keep a running tally of wpm
+  //   totalWords += randomQuote.replace(/[^\w\s]/gi, "").split(" ").length;
 
   //   display the quote, clear the input
   quoteTextEl.textContent = "";
