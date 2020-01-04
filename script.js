@@ -1,4 +1,4 @@
-let timerDisplay = document.getElementById("timer");
+// let timerDisplay = document.getElementById("timer");
 
 // GRABBING A QUOTE FROM api.quotable.io
 let quoteTextEl = document.getElementById("quoteDisplay");
@@ -53,11 +53,11 @@ quoteInputEl.addEventListener("input", () => {
 let startTime;
 
 const initTimer = () => {
-  timerDisplay.innerText = 0;
+  //   timerDisplay.innerText = 0;
   startTime = new Date();
 
   let timerInterval = setInterval(() => {
-    timerDisplay.innerText = getTimerTime();
+    // timerDisplay.innerText = getTimerTime();
   }, 1000);
 };
 
