@@ -1,5 +1,4 @@
 let timerDisplay = document.getElementById("timer");
-let timerCount = 0;
 
 // GRABBING A QUOTE FROM api.quotable.io
 let quoteTextEl = document.getElementById("quoteDisplay");
@@ -16,6 +15,7 @@ quoteInputEl.addEventListener("input", () => {
   // should loop over characters in input, quote and see if they match
   const arrayQuote = quoteTextEl.querySelectorAll("span");
   const arrayValues = quoteInputEl.value.split("");
+  let timerCount = getTimerTime();
 
   //   get the WPM
   let wordCountArr = quoteInputEl.value.replace(/[^\w\s]/gi, "").split(" ");
@@ -48,16 +48,22 @@ quoteInputEl.addEventListener("input", () => {
   if (correct) renderNewQuote();
 });
 
+// we compare the start time with the elapsed time to account for setInterval's imprecision
+
+let startTime;
+
 const initTimer = () => {
-  timerDisplay.textContent = timerCount;
+  timerDisplay.innerText = 0;
+  startTime = new Date();
+
   let timerInterval = setInterval(() => {
-    //   countdown
-    // if (timerCount > 0) {
-    //   timerCount--;
-    // }
-    timerCount++;
-    timerDisplay.textContent = timerCount;
+    timerDisplay.innerText = getTimerTime();
   }, 1000);
+};
+
+const getTimerTime = () => {
+  // get the elapsed time in seconds
+  return Math.floor((new Date() - startTime) / 1000);
 };
 
 const getQuote = async () => {
@@ -72,7 +78,7 @@ const getQuote = async () => {
 };
 
 const renderNewQuote = async () => {
-  timerCount = 0;
+  initTimer();
   const randomQuote = await getQuote();
 
   //   display the quote, clear the input
