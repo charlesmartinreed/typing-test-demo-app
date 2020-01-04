@@ -37,8 +37,16 @@ const renderNewQuote = async () => {
   const randomQuote = await getQuote();
 
   //   display the quote, clear the input
-  quoteTextEl.textContent = randomQuote;
-  quoteInputEl.textContent = "";
+  quoteTextEl.textContent = "";
+
+  //   convert string to arr
+  randomQuote.split("").forEach(character => {
+    //   create span for each char, put char in span
+    const characterSpan = document.createElement("span");
+    characterSpan.innerText = character;
+    quoteTextEl.appendChild(characterSpan);
+  });
+  quoteInputEl.value = null;
 };
 
 renderNewQuote();
