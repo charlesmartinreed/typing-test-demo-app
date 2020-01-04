@@ -1,14 +1,45 @@
+let timerDisplay = document.getElementById("timer");
+let timerCount = 0;
+
 // GRABBING A QUOTE FROM api.quotable.io
 let quoteTextEl = document.getElementById("quoteDisplay");
 let quoteInputEl = document.getElementById("quoteInput");
 
+// EVENT LISTENERS
 window.addEventListener("load", () => {
   initTimer();
   getQuote();
 });
 
-let timerDisplay = document.getElementById("timer");
-let timerCount = 0;
+quoteInputEl.addEventListener("input", () => {
+  // should loop over characters in input, quote and see if they match
+  const arrayQuote = quoteTextEl.querySelectorAll("span");
+  const arrayValues = quoteInputEl.value.split("");
+
+  //   check to see if user has correctly typed the phrase, if so, load the new quote
+  let correct = true;
+
+  arrayQuote.forEach((charSpan, idx) => {
+    const char = arrayValues[idx];
+
+    if (char == null) {
+      // this means the character hasn't been typed yet
+      charSpan.classList.remove("incorrect");
+      charSpan.classList.remove("correct");
+      correct = false;
+    } else if (char === charSpan.innerText) {
+      charSpan.classList.add("correct");
+      charSpan.classList.remove("incorrect");
+    } else {
+      charSpan.classList.remove("correct");
+      charSpan.classList.add("incorrect");
+      correct = false;
+    }
+  });
+
+  //   if we reach the end of our conditional logic and correct is still true, move to the next quote
+  if (correct) renderNewQuote();
+});
 
 const initTimer = () => {
   timerDisplay.textContent = timerCount;
@@ -46,6 +77,7 @@ const renderNewQuote = async () => {
     characterSpan.innerText = character;
     quoteTextEl.appendChild(characterSpan);
   });
+
   quoteInputEl.value = null;
 };
 

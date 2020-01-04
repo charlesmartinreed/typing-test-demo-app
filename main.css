@@ -42,7 +42,7 @@ body,
   /* use this to align the quote and input margins */
   margin-left: calc(1rem + 2px);
   margin-right: calc(1rem + 2px);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .quote-input {
@@ -56,7 +56,7 @@ body,
   /* gets rid of textarea resize */
   resize: none;
   padding: 0.5rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   border-radius: 0.5rem;
 }
 
