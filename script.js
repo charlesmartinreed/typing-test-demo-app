@@ -4,6 +4,7 @@ let timerCount = 0;
 // GRABBING A QUOTE FROM api.quotable.io
 let quoteTextEl = document.getElementById("quoteDisplay");
 let quoteInputEl = document.getElementById("quoteInput");
+let wpmCountEl = document.getElementById("wpmCount");
 
 // EVENT LISTENERS
 window.addEventListener("load", () => {
@@ -15,6 +16,12 @@ quoteInputEl.addEventListener("input", () => {
   // should loop over characters in input, quote and see if they match
   const arrayQuote = quoteTextEl.querySelectorAll("span");
   const arrayValues = quoteInputEl.value.split("");
+
+  //   get the WPM
+  let wordCountArr = quoteInputEl.value.replace(/[^\w\s]/gi, "").split(" ");
+  let currentWPMCount = Math.floor(wordCountArr.length / (timerCount / 60));
+
+  wpmCountEl.textContent = `${currentWPMCount} words per minute`;
 
   //   check to see if user has correctly typed the phrase, if so, load the new quote
   let correct = true;
@@ -65,6 +72,7 @@ const getQuote = async () => {
 };
 
 const renderNewQuote = async () => {
+  timerCount = 0;
   const randomQuote = await getQuote();
 
   //   display the quote, clear the input
