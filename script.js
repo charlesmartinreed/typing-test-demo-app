@@ -1,9 +1,11 @@
 let timerDisplay = document.getElementById("timer");
 
-// GRABBING A QUOTE FROM api.quotable.io
 let quoteTextEl = document.getElementById("quoteDisplay");
 let quoteInputEl = document.getElementById("quoteInput");
 let wpmCountEl = document.getElementById("wpmCount");
+
+let contactDivEl = document.getElementById("footerAttribution");
+let contactTextEl = document.getElementById("footerAttributionText");
 
 // EVENT LISTENERS
 window.addEventListener("load", () => {
@@ -119,3 +121,52 @@ const renderNewQuote = async () => {
 };
 
 renderNewQuote();
+
+// CONTACT INFO LINK ANIMATION
+let contactText = contactTextEl.textContent.split("");
+contactTextEl.textContent = "";
+
+for (let i = 0; i < contactText.length; i++) {
+  const span = document.createElement("span");
+  span.textContent += contactText[i];
+  contactTextEl.appendChild(span);
+}
+
+let charIdx = 0;
+let timer = setInterval(onTick, 100);
+
+function onTick() {
+  // add class to each span
+  const span = contactTextEl.querySelectorAll("span")[charIdx];
+  span.classList.add("footer-fade-animation");
+  charIdx++;
+
+  if (charIdx === contactText.length) {
+    finishAnimation();
+    return;
+  }
+}
+
+function finishAnimation() {
+  // stop our intervals
+  console.log("terminating timer");
+
+  clearInterval(timer);
+  timer = null;
+}
+
+// contactTextEl.textContent.split("").forEach(letter => {
+//   let letterSpan = document.createElement("span");
+//   letterSpan.innerText = letter;
+//   contactDivEl.appendChild(letterSpan);
+
+//   for (let i=0; i < )
+
+//   animateLetterSpan(letterSpan, 500);
+// });
+
+// function animateLetterSpan(span, delay) {
+//   setInterval(() => {
+//     span.classList.add("footer-text-animation");
+//   }, delay);
+// }
