@@ -1,4 +1,4 @@
-// let timerDisplay = document.getElementById("timer");
+let timerDisplay = document.getElementById("timer");
 
 // GRABBING A QUOTE FROM api.quotable.io
 let quoteTextEl = document.getElementById("quoteDisplay");
@@ -25,8 +25,6 @@ quoteInputEl.addEventListener("input", () => {
   let wpmCharCount = wordCountArr.length;
   let wpmTime = getTimerTime() / 60;
   let wpm = Math.floor(wpmCharCount / wpmTime);
-
-  console.log(wordCountArr.length, wpmTime, wpm);
 
   wpmCountEl.textContent = `${wpm} words per minute`;
 
@@ -64,8 +62,22 @@ const initTimer = () => {
   //   timerDisplay.innerText = 0;
   startTime = new Date();
 
+  let minutes;
+  let seconds;
+  let timeStr;
+
   let timerInterval = setInterval(() => {
     totalTime = getTimerTime();
+    minutes = Math.floor(totalTime / 60);
+    seconds = totalTime % 60;
+
+    if (seconds < 10) {
+      timeStr = `${minutes}:0${seconds}`;
+    } else {
+      timeStr = `${minutes}:${seconds}`;
+    }
+
+    timerDisplay.innerText = timeStr;
   }, 1000);
 };
 

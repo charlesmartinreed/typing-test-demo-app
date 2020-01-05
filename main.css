@@ -30,11 +30,12 @@ body,
 }
 
 .timer {
-  /* position: absolute;
-  top: 2rem;
-  font-size: 6rem;
-  color: #f0db4f;
-  font-weight: 800; */
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-size: 2.5rem;
+  color: rgb(48, 20, 20);
+  font-weight: 800;
 }
 
 .quote-display {
